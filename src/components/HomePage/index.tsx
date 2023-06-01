@@ -1,24 +1,56 @@
-import { Heading, Text, Box } from "@cruk/cruk-react-components";
+import { useState, useEffect } from "react";
+import { Heading, Box } from "@cruk/cruk-react-components";
+import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { NasaSearchParams } from "../../types";
+import useNasaQuery from "../../hooks/useNasaQuery";
 import Results from "../Results";
+import NASAForm from "../NASAForm";
 
 export const HomePage = () => {
-  //
-  // form and validation code here
+  const [searchParams, setSearchParams] = useState<NasaSearchParams | null>(
+    null
+  );
+  const [validateErrors, setValidateErrors] = useState<Error[]>([]);
 
-  const exampleParam: NasaSearchParams = {
-    keywords: "moon",
-    yearStart: 2000,
-    mediaType: "image",
+  function resetSearch() {
+    setSearchParams(null);
+    setValidateErrors([]);
+  }
+
+  const onSubmit: SubmitHandler<NasaSearchParams> = (requestData) => {
+    resetSearch();
+    setSearchParams(requestData);
   };
+
+  const onSubmitError: SubmitErrorHandler<NasaSearchParams> = (errors) => {
+    resetSearch();
+    setValidateErrors(errors);
+  };
+
+  const { data, error, isFetching, refetch } = useNasaQuery(searchParams);
+
+  useEffect(() => {
+    if (searchParams) {
+      refetch();
+    }
+  }, [searchParams]);
 
   return (
     <Box marginTop="s" paddingTop="s">
-      <Heading h1>React Exercise</Heading>
+      <Heading h1>NASA Media Search</Heading>
 
-      <Text>Form goes here</Text>
+      <NASAForm
+        onSubmit={onSubmit}
+        onSubmitError={onSubmitError}
+        isFetching={isFetching}
+      />
 
-      <Results searchParams={exampleParam} />
+      <Results
+        data={data}
+        error={error}
+        isFetching={isFetching}
+        noParams={!searchParams}
+      />
     </Box>
   );
 };
