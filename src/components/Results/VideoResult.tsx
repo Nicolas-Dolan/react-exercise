@@ -1,3 +1,5 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable jsx-a11y/media-has-caption */
 import useNasaJSONQuery from "../../hooks/useNasaJSONQuery";
 import { ItemsType } from "../../types";
 

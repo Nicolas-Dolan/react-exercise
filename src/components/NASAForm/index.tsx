@@ -3,6 +3,7 @@ import {
   SubmitHandler,
   Controller,
   SubmitErrorHandler,
+  FieldValues,
 } from "react-hook-form";
 import { TextField, Box, Button, Select } from "@cruk/cruk-react-components";
 import { z } from "zod";
@@ -53,7 +54,13 @@ export const NASAForm = ({
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onSubmitError)}>
+    <form
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onSubmit={handleSubmit(
+        onSubmit as SubmitHandler<FieldValues>,
+        onSubmitError
+      )}
+    >
       <Controller
         name="keywords"
         defaultValue=""

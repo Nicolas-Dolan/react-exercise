@@ -45,10 +45,10 @@ export const Results = ({
     );
   }
 
-  if (error?.message) {
+  if ((error as Error)?.message) {
     return (
       <Box marginTop="s">
-        <ErrorText>{error.message}</ErrorText>
+        <ErrorText>{(error as Error).message}</ErrorText>
       </Box>
     );
   }

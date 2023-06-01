@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { Heading, Box } from "@cruk/cruk-react-components";
-import { SubmitHandler, SubmitErrorHandler } from "react-hook-form";
+import {
+  SubmitHandler,
+  SubmitErrorHandler,
+  FieldErrors,
+} from "react-hook-form";
 import { NasaSearchParams } from "../../types";
 import useNasaQuery from "../../hooks/useNasaQuery";
 import Results from "../Results";
@@ -10,11 +14,11 @@ export const HomePage = () => {
   const [searchParams, setSearchParams] = useState<NasaSearchParams | null>(
     null
   );
-  const [validateErrors, setValidateErrors] = useState<Error[]>([]);
+  const [, setValidateErrors] = useState<FieldErrors<NasaSearchParams>>({});
 
   function resetSearch() {
     setSearchParams(null);
-    setValidateErrors([]);
+    setValidateErrors({});
   }
 
   const onSubmit: SubmitHandler<NasaSearchParams> = (requestData) => {
@@ -31,6 +35,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     if (searchParams) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       refetch();
     }
   }, [searchParams]);
