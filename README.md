@@ -130,9 +130,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ---
 
-# Notes on task
+# Notes on the task
 
-I have completed the functional requirements for this task and [deployed on Vercel](https://react-exercise-ashy.vercel.app/). Unfortunately, the styles are not being compiled correctly during the build so it does not look as intended and I do not have time to debug. Run `npm run dev` to see the app with the styles applied correctly.
+I have completed the functional requirements for this task and [deployed on Vercel](https://react-exercise-ashy.vercel.app/). Unfortunately, the styles are not being compiled correctly during the build so it does not look as intended and I do not have time to debug. Run `npm run dev` locally to see the app with the styles applied correctly.
 
 ## What I would improve
 
@@ -142,5 +142,5 @@ Other than the above, the main things I would change with more time are:
 - Better error handling (it's missing in a few places and not all error messages are fed back to the user)
 - Some of the type and linting issues could be handled better
 - Could restructure the components to put them all under a dedicated NASA media folder
-- Ideally would keep the NASA media state in a dedicated component rather than the HomePage component
-- Alternatively, the state could be kept in the Context API; although this might be overkill for such a small app
+- Ideally, would keep the NASA media state in a dedicated component rather than the HomePage component
+- Alternatively, the state could be handled by the Context API; although this might be overkill for such a small app
